@@ -1,6 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { initDatabase } from './db.js';
 import authRouter from './routes/auth.js';
 import studentsRouter from './routes/students.js';
@@ -9,6 +11,9 @@ import timetableRouter from './routes/timetable.js';
 import messagesRouter from './routes/messages.js';
 
 dotenv.config();
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const DIST_PATH = path.resolve(__dirname, '../dist');
 
 // Initialize Database & Seed data
 initDatabase();
@@ -49,6 +54,21 @@ app.get('/api/health', (req, res) => {
     service: 'smart-classmate-backend',
     uptime: process.uptime(),
     timestamp: new Date().toISOString(),
+  });
+});
+
+app.use('/api', (req, res) => {
+  res.status(404).json({ error: 'API endpoint not found' });
+});
+
+app.use(express.static(DIST_PATH));
+app.use((req, res, next) => {
+  if (req.method !== 'GET') {
+    return next();
+  }
+
+  res.sendFile(path.join(DIST_PATH, 'index.html'), (err) => {
+    if (err) next(err);
   });
 });
 

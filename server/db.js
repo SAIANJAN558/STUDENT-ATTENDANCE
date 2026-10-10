@@ -6,7 +6,7 @@ import bcrypt from 'bcryptjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const DB_PATH = path.join(__dirname, 'smart_classmate.db');
+const DB_PATH = process.env.DATABASE_PATH || path.join(__dirname, 'smart_classmate.db');
 
 export const db = new DatabaseSync(DB_PATH);
 
@@ -80,7 +80,9 @@ export function initDatabase() {
     );
   `);
 
-  seedDefaultData();
+  if (process.env.NODE_ENV !== 'production') {
+    seedDefaultData();
+  }
 }
 
 function seedDefaultData() {

@@ -89,6 +89,15 @@ npm test
 npm run build
 ```
 
+### 5. Deploy to Render
+
+1. Sign in to [Render](https://render.com) and choose **New** → **Blueprint**.
+2. Connect the `SAIANJAN558/STUDENT-ATTENDANCE` GitHub repository and deploy the `render.yaml` blueprint.
+3. Wait for the build to finish, then open the `smart-classmate` service URL provided by Render.
+4. Create an account using **Sign Up**. For safety, the known demo accounts are not seeded in production.
+
+The free Render service can sleep when idle, and its local SQLite database is temporary. User accounts, attendance, and other changes can be lost when the service restarts or redeploys. Persistent storage requires a paid Render plan and a persistent disk.
+
 ---
 
 ## 🗄️ Database Structure
