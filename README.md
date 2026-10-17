@@ -63,6 +63,11 @@ The database automatically seeds realistic demo data upon first start:
 
 ## 🛠️ Quick Start
 
+### Prerequisites
+
+- Node.js 22.5.0 or later
+- npm
+
 ### 1. Install Dependencies
 ```bash
 npm install
